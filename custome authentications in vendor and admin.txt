@@ -1,0 +1,29 @@
+    public function handle($request, $next)
+    {
+        if (Fortify::$authenticateUsingCallback) {
+            return $this->handleUsingCustomCallback($request, $next);
+        }
+
+        if ($this->guard->attempt(
+            $request->only(Fortify::username(), 'password'),
+            $request->filled('remember'))
+        ) {
+            if(Auth::user()->is_admin === 1){
+                session(['Admin' => 1]);
+                return redirect(RouteServiceProvider::ADMIN);
+            } else if(Auth::user()->is_admin === 2){
+                session(['Vendor' => 2]);
+                return redirect(RouteServiceProvider::VENDOR);
+            } else if(Auth::user()->is_admin === 0){
+                session(['Customer' => 0]);
+                return redirect(RouteServiceProvider::CUSTOMER);
+            }
+            else if(Auth::user()->is_enable === 1){
+                session(['Enabled' => 1]);
+                return redirect(RouteServiceProvider::ENABLED);
+            }
+            return $next($request);
+        }
+
+        $this->throwFailedAuthenticationException($request);
+    }

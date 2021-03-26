@@ -19,6 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+             // if = 0 => 'customer' , if = 1 => 'admin of system' , if = 2 => 'vendor of market'
+            $table->integer('is_admin')->default(0);
+            $table->integer('is_enable')->default(0);
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->text('profile_photo_path')->nullable();
