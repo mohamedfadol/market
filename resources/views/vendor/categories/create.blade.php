@@ -21,11 +21,11 @@
              {{ method_field('POST') }}
             <div class="card-body">
                 <div class="form-group">
-                    <label for="title">{{ __('message.Category Title') }}</label>
+                    <label for="category_name">{{ __('message.Category Title') }}</label>
                     <input type="text" name="category_name" 
-                        class="form-control form-control-sm" id="title" 
+                        class="form-control form-control-sm" id="category_name" 
                             placeholder="Enter Category Title">
-                    @error('title') <span class="text-danger">{{$message}}</span>@enderror
+                    @error('category_name') <span class="text-danger">{{$message}}</span>@enderror
                 </div>
             </div>
             <div class="modal-footer justify-content-between">

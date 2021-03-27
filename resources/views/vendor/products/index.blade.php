@@ -5,8 +5,8 @@
     <div class="card-header">
         <h3 class="card-title">
             <div class="btn-group">
-                <a type="button"  class="btn btn-success" href="{{route('vendor.create.category')}}">
-                    {{ __('message.New Category') }}</a>
+                <a type="button"  class="btn btn-success" href="{{route('vendor.create.product')}}">
+                    {{ __('message.New product') }}</a>
             </div>
         </h3>
     </div>
@@ -22,23 +22,23 @@
                     <th>{{ __('message.Actions') }}</th>
                 </tr>
             </thead>
-            @if($categories->count() > 0)
+            @if($products->count() > 0)
             <tbody>
-                @foreach($categories as $category)
+                @foreach($products as $product)
                     <tr>
-                        <td>{{ $category->id }}</td>
-                        <td>{{ $category->category_name }}</td> 
-                        <td>{{ $category->vendor->name }}</td> 
-                        <td>{{ $category->created_at }}</td>
+                        <td>{{ $product->id }}</td>
+                        <td>{{ $product->product_name }}</td> 
+                        <td>{{ $product->vendor->name }}</td> 
+                        <td>{{ $product->created_at }}</td>
                         <td class="text-center">
                             <div class="btn-group content-align-center">
                                 <a type="button" class="btn btn-success"
-                                    href="{{route('vendor.edit.category',$category->id)}}">
+                                    href="{{route('vendor.edit.product',$product->id)}}">
                                     {{ __('message.Edit') }}
                                 </a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-sm delete"
                                     data-toggle="modal" data-target="#modal-warning"
-                                        data-id={{ $category->id }} >{{ __('message.Delete') }} </a>
+                                        data-id={{ $product->id }} >{{ __('message.Delete') }} </a>
                             </div>
                         </td>
                     </tr>
@@ -68,16 +68,16 @@
         <div class="modal-dialog">
           <div class="modal-content bg-warning">
             <div class="modal-header">
-              <h4 class="modal-title text-white">{{ __('message.For Comfirm Delete Category') }}</h4>
+              <h4 class="modal-title text-white">{{ __('message.For Comfirm Delete product') }}</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
               </button>
             </div>
             <div class="modal-body">
-            <form action=" {{ route('vendor.destroy.category',$category->id) }} " method="post">
+            <form action="  " method="post">
                 {{ method_field('delete') }}
                  {{ csrf_field() }}
-            <div class="bg-danger text-white text-center">{{ __('message.Sure Delete Category') }}</div>
+            <div class="bg-danger text-white text-center">{{ __('message.Sure Delete product') }}</div>
             <input type="hidden" id="id" name="id" value="">
             </div>
             <div class="modal-footer justify-content-between">

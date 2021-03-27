@@ -27,7 +27,6 @@ class CreateProductsTable extends Migration
             $table->text('long_desc')->nullable();
             $table->boolean('featured')->default(false);
             $table->unsignedInteger('quantity')->default(10);
-            $table->string('category_name');
             $table->foreignId('user_id')->nullable()->index();
             $table->foreignId('category_id')->nullable()->index();
             $table->timestamps();

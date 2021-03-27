@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
 class ProductController extends Controller
 {
     /**
@@ -30,7 +30,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::orderBy('id','desc')->get();
-        return view('vendor.products.index')->with(['categories' => $categories]);
+        return view('vendor.products.create')->with(['categories' => $categories]);
     }
 
     /**
@@ -42,7 +42,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $category = new Product();
-        $category->product_name       =  $request->input('product_name');
+        $category->product_name  = Str::slug($request->input('product_name'));
         $category->user_id =  Auth::user()->id;
         $category->save();
          return  redirect(route('vendor.products'))->with('success' ,'Product Has Been Inserted');
