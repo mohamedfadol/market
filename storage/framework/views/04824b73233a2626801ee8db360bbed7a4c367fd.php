@@ -15,6 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo e(asset('web/assets/css/chosen.min.css')); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo e(asset('web/assets/css/style.css')); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo e(asset('web/assets/css/color-01.css')); ?>">
+	<?php echo $__env->yieldContent('styles'); ?>
 </head>
 <body class="home-page home-01 ">
 
@@ -42,5 +43,7 @@
 	<script src="<?php echo e(asset('web/assets/js/jquery.countdown.min.js')); ?>"></script>
 	<script src="<?php echo e(asset('web/assets/js/jquery.sticky.js')); ?>"></script>
 	<script src="<?php echo e(asset('web/assets/js/functions.js')); ?>"></script>
+	<?php echo $__env->yieldContent('scripts'); ?>
+	<?php echo $__env->make('sweetalert::alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 </body>
 </html><?php /**PATH C:\xampp\htdocs\market\resources\views/layouts/web/webBase.blade.php ENDPATH**/ ?>

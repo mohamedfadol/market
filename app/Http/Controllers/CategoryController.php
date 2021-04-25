@@ -27,7 +27,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() 
     {
         return view('vendor.categories.create');
     }
@@ -92,9 +92,9 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Request $request)
     {
-        $category = Category::findOrFail($category->id);
+        $category = Category::where('id', $request->id);
         $category->delete();
         return redirect(route('vendor.categories'))->with('success', 'Category Has Been Deleted');
          

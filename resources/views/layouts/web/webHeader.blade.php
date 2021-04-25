@@ -123,7 +123,7 @@
                 <div class="mid-section main-info-area">
 
                     <div class="wrap-logo-top left-section">
-                        <a href="index.html" class="link-to-home"><img src="{{ asset('web/assets/images/logo-top-1.png') }}" alt="mercado"></a>
+                        <a href="index.html" class="link-to-home"><img src="{{ asset('web/assets/images/logo.png') }}" alt="mercado"></a>
                     </div>
 
                     <div class="wrap-search center-section">

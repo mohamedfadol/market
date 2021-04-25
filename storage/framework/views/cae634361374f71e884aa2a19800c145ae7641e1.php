@@ -23,11 +23,11 @@
 
             <div class="card-body">
                 <div class="form-group">
-                    <label for="title"><?php echo e(__('message.Category Title')); ?></label>
+                    <label for="category_name"><?php echo e(__('message.Category Title')); ?></label>
                     <input type="text" name="category_name" 
-                        class="form-control form-control-sm" id="title" 
+                        class="form-control form-control-sm" id="category_name" 
                             placeholder="Enter Category Title">
-                    <?php $__errorArgs = ['title'];
+                    <?php $__errorArgs = ['category_name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }

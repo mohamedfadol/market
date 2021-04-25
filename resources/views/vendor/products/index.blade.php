@@ -16,8 +16,15 @@
             <thead>
                 <tr> 
                     <th>{{ __('message.ID') }}</th>
+                    <th>{{ __('message.product images') }}</th>
                     <th>{{ __('message.Title') }}</th>
                     <th>{{ __('message.Vendor Name') }}</th>
+                    <th>{{ __('message.Category') }}</th>
+                    <th>{{ __('message.sale price') }}</th>
+                    <th>{{ __('message.regural price') }}</th>
+                    <th>{{ __('message.product quantity') }}</th>
+                    <th>{{ __('message.Stock') }}</th>
+                    <th>{{ __('message.SKU') }}</th>
                     <th>{{ __('message.Date') }}</th>
                     <th>{{ __('message.Actions') }}</th>
                 </tr>
@@ -27,8 +34,25 @@
                 @foreach($products as $product)
                     <tr>
                         <td>{{ $product->id }}</td>
+                        <td>
+                        <img class="img-thumbnail"
+                            src="{{ URL::asset('/storage/product/image/'.$product->image) }}"
+                                width="80" />
+                        </td>
                         <td>{{ $product->product_name }}</td> 
                         <td>{{ $product->vendor->name }}</td> 
+                        <td>{{ $product->category->category_name }}</td>
+                        <td>{{ $product->sale_price }}</td>
+                        <td>{{ $product->regural_price }}</td>
+                        <td>{{ $product->quantity }}</td>
+                        <td>
+                        @if( $product->stock_status == 'instock')
+                        <label class="btn btn-primary btn-sm">{{ $product->stock_status }}</label> 
+                        @elseif( $product->stock_status == 'outofstock')
+                        <label class="btn btn-danger btn-sm">{{ $product->stock_status }}</label>
+                        @endif
+                        </td>
+                        <td>{{ $product->sku }}</td>
                         <td>{{ $product->created_at }}</td>
                         <td class="text-center">
                             <div class="btn-group content-align-center">
@@ -45,13 +69,20 @@
                 @endforeach
             </tbody>
             @else
-                <p class="text-info text-center">{{ __('message.Theres No Categories In Your Database To Show Them') }}</p>
+                <p class="text-info text-center">{{ __('message.Theres No Product In Your Database To Show Them') }}</p>
             @endif
             <tfoot>
-                <tr>
+                <tr> 
                     <th>{{ __('message.ID') }}</th>
-                    <th>{{ __('message.Title') }}</th> 
+                    <th>{{ __('message.product images') }}</th>
+                    <th>{{ __('message.Title') }}</th>
                     <th>{{ __('message.Vendor Name') }}</th>
+                    <th>{{ __('message.Category') }}</th>
+                    <th>{{ __('message.sale price') }}</th>
+                    <th>{{ __('message.regural price') }}</th>
+                    <th>{{ __('message.product quantity') }}</th>
+                    <th>{{ __('message.Stock') }}</th>
+                    <th>{{ __('message.SKU') }}</th>
                     <th>{{ __('message.Date') }}</th>
                     <th>{{ __('message.Actions') }}</th>
                 </tr>
@@ -74,7 +105,7 @@
               </button>
             </div>
             <div class="modal-body">
-            <form action="  " method="post">
+            <form action=" {{route('products.destroy','product')}} " method="post">
                 {{ method_field('delete') }}
                  {{ csrf_field() }}
             <div class="bg-danger text-white text-center">{{ __('message.Sure Delete product') }}</div>
@@ -92,3 +123,32 @@
       </div>
       <!-- end /.modal delete -->
 @endsection
+
+
+
+@section('scripts')
+    <script>
+        /* function for edit CostsTypes with alert modal */
+        $("#editModal").on('show.bs.modal.edit', function(event){
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var name = button.data('name');
+            var name_ar = button.data('name_ar');
+            var modal = $(this);
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #name').val(name);
+            modal.find('.modal-body #name_ar').val(name_ar);
+
+        });
+    </script>
+    <script>
+        /* function for delete CostsTypes with alert modal */
+        $("#modal-warning").on('show.bs.modal.delete', function(event){
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var modal = $(this);
+            modal.find('.modal-body #id').val(id);
+        });
+    </script>
+
+@stop()

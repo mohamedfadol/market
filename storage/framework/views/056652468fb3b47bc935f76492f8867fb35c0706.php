@@ -12,14 +12,14 @@
                 <a type="button"  class="btn btn-info" 
                     href="<?php echo e(route('vendor.products')); ?>"><?php echo e(__('message.products List')); ?></a>
             </div>
-            <div class="btn-group">
-                <button type="submit" class="btn btn-outline-dark bg-primary"><?php echo e(__('message.Add New')); ?></button>
-            </div>
         </h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-        <form action="<?php echo e(route('vendor.store.category')); ?>" method="POST" >
+        <form action="<?php echo e(route('vendor.store.product')); ?>" method="POST" >
+        <div class="btn-group">
+                <button type="submit" class="btn btn-outline-dark bg-primary"><?php echo e(__('message.Add New')); ?></button>
+            </div>
              <?php echo e(csrf_field()); ?>
 
              <?php echo e(method_field('POST')); ?>
@@ -45,7 +45,7 @@ unset($__errorArgs, $__bag); ?>
                 
                 <div class="form-group">
                   <label><?php echo e(__('message.Select Category')); ?></label>
-                  <select name="stock_status" class="form-control select2" style="width: 100%;">
+                  <select name="category_id" class="form-control select2" style="width: 100%;">
                   <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <option value="<?php echo e($category->id); ?>" ><?php echo e($category->category_name); ?></option>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -123,8 +123,8 @@ unset($__errorArgs, $__bag); ?>
                 <div class="form-group">
                   <label><?php echo e(__('message.Select Stock')); ?></label>
                   <select name="stock_status" class="form-control select2" style="width: 100%;">
-                    <option value="1" >In Stock</option>
-                    <option value="1" >Out Of Stock</option>
+                    <option value="instock" >In Stock</option>
+                    <option value="outofstock" >Out Of Stock</option>
                   </select>
                   <?php $__errorArgs = ['stock_status'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -193,6 +193,7 @@ unset($__errorArgs, $__bag); ?>
                 </div>
                 <div class="form-group">
                     <label for="image"><?php echo e(__('message.product image')); ?></label>
+                    <img id="blah" src="#" alt="..." class="img-thumbnail">
                     <input type="file" name="image" 
                         class="form-control form-control-sm" id="image" >
                     <?php $__errorArgs = ['image'];
@@ -215,4 +216,51 @@ unset($__errorArgs, $__bag); ?>
 <!-- /.card -->
 <?php $__env->stopSection(); ?>
 
+
+
+<?php $__env->startSection('scripts'); ?>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script>
+    $(function() {
+        var imgPrev = function(input, imgPlaceholder) {
+
+            if (input.files) {
+                var allFiles = input.files.length;
+
+                for (i = 0; i < allFiles; i++) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(event) {
+                        $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(imgPlaceholder);
+                    }
+
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+        };
+
+        $('#multiImg').on('change', function() {
+            imgPrev(this, 'div.preview');
+        });
+    });
+    </script>
+
+<script>
+    /* function for perview image*/
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#image").change(function(){
+        readURL(this);
+    });
+    /* function for perview image*/
+</script>
+
+<?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.admin.base', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\market\resources\views/vendor/products/create.blade.php ENDPATH**/ ?>

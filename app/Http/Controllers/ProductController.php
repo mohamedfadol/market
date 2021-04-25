@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class ProductController extends Controller
 {
     /**
@@ -41,11 +43,63 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new Product();
-        $category->product_name  = Str::slug($request->input('product_name'));
-        $category->user_id =  Auth::user()->id;
-        $category->save();
-         return  redirect(route('vendor.products'))->with('success' ,'Product Has Been Inserted');
+           // dd($request->all());
+        $this->validate($request, [
+            'product_name'      => 'required|string',
+            'stock_status'      => 'required|string',
+            'quantity'          => 'required',
+            'sale_price'        => 'required|numeric',
+            'featured'          => 'required',
+            'category_id'       => 'required',
+            'image'             => 'required',
+            'images.*'          => 'nullable'
+        ]);
+        $product = new Product(); 
+        if ($request->hasFile('image')) {
+            // Get File Name With Extenison
+            $fileNameWithEex = $request->file('image')->getClientOriginalName();
+            // Get fileName Only
+            $fileName = pathinfo($fileNameWithEex , PATHINFO_FILENAME);
+            // Get FileExtenison
+            $extension = $request->file('image')->getClientOriginalExtension();
+            // fileName To Store
+            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+            // Upload file
+            $folder = '/public/product/image';
+            $path = $request->file('file')->storeAs($folder, $fileNameToStore);
+            // dd($path);
+        }else{
+            $fileNameToStore = 'No Image To Store In .jpg';
+        }
+        if ($request->hasFile('images')) {
+            $files = [];
+            if($request->hasfile('images')){
+                foreach($request->file('images') as $file){
+                    $name = time().rand(1,100).'.'.$file->extension();
+                    $folder = '/public/products/images';
+                    $file->storeAs($folder, $name);
+                    $files[] = $name;
+                }
+             }
+        }else{
+            $files = 'No Images To Store In .jpg';
+        }
+        $product->product_name  = $request->input('product_name');
+        $product->slug          = Str::slug($request->input('product_name'));
+        $product->image         = $fileNameToStore;
+        $product->images        = $files;
+        $product->stock_status  = $request->input('stock_status');
+        $product->sale_price    = $request->input('sale_price');
+        $product->regural_price = $request->input('regural_price');
+        $product->sku           = $request->input('sku');
+        $product->short_desc    = $request->input('short_desc');
+        $product->long_desc     = $request->input('long_desc');
+        $product->featured      = $request->input('featured');
+        $product->quantity      = $request->input('quantity');
+        $product->category_id   = $request->input('category_id');
+        $product->user_id       =  Auth::user()->id;
+        $product->save();
+        return  redirect(route('vendor.products'))->with('success' ,'Product Has Been Inserted');
     }
 
     /**
@@ -81,9 +135,61 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+           // dd($request->all());
+           $this->validate($request, [
+            'product_name'      => 'required|string',
+            'stock_status'      => 'required|string',
+            'quantity'          => 'required',
+            'sale_price'        => 'required|numeric',
+            'featured'          => 'required',
+            'category_id'       => 'required',
+            'image'             => 'required',
+            'images.*'          => 'nullable'
+        ]);
+        if ($request->hasFile('image')) {
+            // Get File Name With Extenison
+            $fileNameWithEex = $request->file('image')->getClientOriginalName();
+            // Get fileName Only
+            $fileName = pathinfo($fileNameWithEex , PATHINFO_FILENAME);
+            // Get FileExtenison
+            $extension = $request->file('image')->getClientOriginalExtension();
+            // fileName To Store
+            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+            // Upload file
+            $folder = '/public/product/image';
+            $path = $request->file('file')->storeAs($folder, $fileNameToStore);
+            // dd($path);
+        }else{
+            $fileNameToStore = 'No Image To Store In .jpg';
+        }
+        if ($request->hasFile('images')) {
+            $files = [];
+            if($request->hasfile('images')){
+                foreach($request->file('images') as $file){
+                    $name = time().rand(1,100).'.'.$file->extension();
+                    $folder = '/public/products/images';
+                    $file->storeAs($folder, $name);
+                    $files[] = $name;
+                }
+             }
+        }else{
+            $files = 'No Images To Store In .jpg';
+        }
         $product = Product::findOrFail($product->id);
-        $product->product_name       =  $request->input('product_name');
-        $product->user_id =  Auth::user()->id;
+        $product->product_name  = $request->input('product_name');
+        $product->slug          = Str::slug($request->input('product_name'));
+        $product->image         = $request->input('image');
+        $product->images        = $request->input('images');
+        $product->stock_status  = $request->input('stock_status');
+        $product->sale_price    = $request->input('sale_price');
+        $product->regural_price = $request->input('regural_price');
+        $product->sku           = $request->input('sku');
+        $product->short_desc    = $request->input('short_desc');
+        $product->long_desc     = $request->input('long_desc');
+        $product->featured      = $request->input('featured');
+        $product->quantity      = $request->input('quantity');
+        $product->category_id   = $request->input('category_id');
+        $product->user_id       =  Auth::user()->id;
         $product->save();
         return  redirect(route('vendor.products'))->with('success' ,'Product Has Been Inserted');
     }
@@ -94,9 +200,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request)
     {
-        $product = Product::findOrFail($product->id);
+        $product = Product::where('id', $request->id);
         $product->delete();
         return redirect(route('vendor.products'))->with('success', 'Product Has Been Deleted');
     }

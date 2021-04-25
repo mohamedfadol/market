@@ -39,6 +39,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','auth:sanctum', 'veri
 Route::group(['prefix' => 'vendor', 'middleware' => ['auth','auth:sanctum', 'verified','Vendor']], function(){
     // 
             // start categories routs //
+    Route::resource('/categories' , CategoryController::class);
     Route::get('/dashboard' , [VendorController::class ,'index'])->name('vendor.dashboard');
     Route::get('/categories' , [CategoryController::class ,'index'])->name('vendor.categories');
     Route::get('/category/create' , [CategoryController::class ,'create'])->name('vendor.create.category');
@@ -50,6 +51,7 @@ Route::group(['prefix' => 'vendor', 'middleware' => ['auth','auth:sanctum', 'ver
             // end categories routs //
     // 
             // start products routs //
+    Route::resource('/products' , ProductController::class);
     Route::get('/products' , [ProductController::class ,'index'])->name('vendor.products');
     Route::get('/product/create' , [ProductController::class ,'create'])->name('vendor.create.product');
     Route::post('/product/store' , [ProductController::class ,'store'])->name('vendor.store.product');

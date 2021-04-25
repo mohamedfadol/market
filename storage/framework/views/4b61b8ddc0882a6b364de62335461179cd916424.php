@@ -24,9 +24,9 @@
             </thead>
             <?php if($categories->count() > 0): ?>
             <tbody>
-                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php $__empty_1 = true; $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                     <tr>
-                        <td><?php echo e($category->id); ?></td>
+                        <td><?php echo e($category->id); ?></td> 
                         <td><?php echo e($category->category_name); ?></td> 
                         <td><?php echo e($category->vendor->name); ?></td> 
                         <td><?php echo e($category->created_at); ?></td>
@@ -43,7 +43,9 @@
                             </div>
                         </td>
                     </tr>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                 <p class="text-info text-center"><?php echo e(__('message.Theres No Categories In Your Database To Show Them')); ?></p>
+                <?php endif; ?>
             </tbody>
             <?php else: ?>
                 <p class="text-info text-center"><?php echo e(__('message.Theres No Categories In Your Database To Show Them')); ?></p>
@@ -64,6 +66,42 @@
 <!-- /.card -->
 
 
+
+ <!-- start Modal for edit  -->
+<div class="modal fade edit" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModal"><?php echo e(__('message.Edit Job')); ?></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="<?php echo e(route('categories.update','category')); ?>" method="POST">
+            <?php echo csrf_field(); ?>
+            <?php echo e(method_field('patch')); ?>
+
+            <input type="hidden" name="id" value="" id="id">
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label col-form-label-sm"><?php echo e(__('message.Name English')); ?></label>
+                <div class="col-sm-10">
+                <input type="text" name="name" class="form-control form-control-sm" id="name" />
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo e(__('message.Close')); ?></button>
+            <button type="submit" class="btn btn-primary"><?php echo e(__('message.Save changes')); ?></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- end Modal for edit  -->
+
+
  <!-- start /.modal delete -->
 <div class="modal fade delete" id="modal-warning">
         <div class="modal-dialog">
@@ -75,7 +113,7 @@
               </button>
             </div>
             <div class="modal-body">
-            <form action=" <?php echo e(route('vendor.destroy.category',$category->id)); ?> " method="post">
+            <form action=" <?php echo e(route('categories.destroy','category')); ?> " method="post">
                 <?php echo e(method_field('delete')); ?>
 
                  <?php echo e(csrf_field()); ?>
@@ -96,4 +134,32 @@
       <!-- end /.modal delete -->
 <?php $__env->stopSection(); ?>
 
+
+
+<?php $__env->startSection('scripts'); ?>
+    <script>
+        /* function for edit CostsTypes with alert modal */
+        $("#editModal").on('show.bs.modal.edit', function(event){
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var name = button.data('name');
+            var name_ar = button.data('name_ar');
+            var modal = $(this);
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #name').val(name);
+            modal.find('.modal-body #name_ar').val(name_ar);
+
+        });
+    </script>
+    <script>
+        /* function for delete CostsTypes with alert modal */
+        $("#modal-warning").on('show.bs.modal.delete', function(event){
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var modal = $(this);
+            modal.find('.modal-body #id').val(id);
+        });
+    </script>
+
+<?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.admin.base', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\market\resources\views/vendor/categories/index.blade.php ENDPATH**/ ?>
