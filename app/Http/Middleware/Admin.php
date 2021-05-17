@@ -22,7 +22,7 @@ class Admin
             session()->flush();
             return redirect()->route('login');
         }
- 
+  
         return $next($request);
     }
 }

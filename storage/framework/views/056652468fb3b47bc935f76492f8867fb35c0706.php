@@ -16,7 +16,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-        <form action="<?php echo e(route('vendor.store.product')); ?>" method="POST" >
+        <form action="<?php echo e(route('vendor.store.product')); ?>" method="POST" enctype="multipart/form-data">
         <div class="btn-group">
                 <button type="submit" class="btn btn-outline-dark bg-primary"><?php echo e(__('message.Add New')); ?></button>
             </div>
@@ -180,8 +180,7 @@ unset($__errorArgs, $__bag); ?>
                 </div>
                 <div class="form-group">
                     <label for="images"><?php echo e(__('message.product images')); ?></label>
-                    <input type="file" name="images" 
-                        class="form-control form-control-sm" id="images">
+                    <input type="file" name="images" class="form-control form-control-sm" id="images" />
                     <?php $__errorArgs = ['images'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -194,8 +193,7 @@ unset($__errorArgs, $__bag); ?>
                 <div class="form-group">
                     <label for="image"><?php echo e(__('message.product image')); ?></label>
                     <img id="blah" src="#" alt="..." class="img-thumbnail">
-                    <input type="file" name="image" 
-                        class="form-control form-control-sm" id="image" >
+                    <input type="file" name="image" class="form-control form-control-sm" id="image" />
                     <?php $__errorArgs = ['image'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :

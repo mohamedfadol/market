@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo e(asset('web/assets/css/font-awesome.min.css')); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo e(asset('web/assets/css/bootstrap.min.css')); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo e(asset('web/assets/css/owl.carousel.min.css')); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('web/assets/css/flexslider.css')); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo e(asset('web/assets/css/chosen.min.css')); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo e(asset('web/assets/css/style.css')); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo e(asset('web/assets/css/color-01.css')); ?>">
@@ -32,8 +33,8 @@
   <?php echo $__env->yieldContent('content'); ?>
 
   <?php echo $__env->make('layouts.web.webFooter', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-	
-	
+
+
 	<script src="<?php echo e(asset('web/assets/js/jquery-1.12.4.minb8ff.js?ver=1.12.4')); ?>"></script>
 	<script src="<?php echo e(asset('web/assets/js/jquery-ui-1.12.4.minb8ff.js?ver=1.12.4')); ?>"></script>
 	<script src="<?php echo e(asset('web/assets/js/bootstrap.min.js')); ?>"></script>
@@ -46,4 +47,5 @@
 	<?php echo $__env->yieldContent('scripts'); ?>
 	<?php echo $__env->make('sweetalert::alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 </body>
-</html><?php /**PATH C:\xampp\htdocs\market\resources\views/layouts/web/webBase.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH C:\xampp\htdocs\market\resources\views/layouts/web/webBase.blade.php ENDPATH**/ ?>

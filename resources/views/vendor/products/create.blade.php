@@ -16,7 +16,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-        <form action="{{route('vendor.store.product')}}" method="POST" >
+        <form action="{{route('vendor.store.product')}}" method="POST" enctype="multipart/form-data">
         <div class="btn-group">
                 <button type="submit" class="btn btn-outline-dark bg-primary">{{ __('message.Add New') }}</button>
             </div>
@@ -108,15 +108,13 @@
                 </div>
                 <div class="form-group">
                     <label for="images">{{ __('message.product images') }}</label>
-                    <input type="file" name="images" 
-                        class="form-control form-control-sm" id="images">
+                    <input type="file" name="images" class="form-control form-control-sm" id="images" />
                     @error('images') <span class="text-danger">{{$message}}</span>@enderror
                 </div>
                 <div class="form-group">
                     <label for="image">{{ __('message.product image') }}</label>
                     <img id="blah" src="#" alt="..." class="img-thumbnail">
-                    <input type="file" name="image" 
-                        class="form-control form-control-sm" id="image" >
+                    <input type="file" name="image" class="form-control form-control-sm" id="image" />
                     @error('image') <span class="text-danger">{{$message}}</span>@enderror
                 </div>
                 </div>

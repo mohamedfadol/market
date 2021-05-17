@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('web/assets/css/font-awesome.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('web/assets/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('web/assets/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('web/assets/css/flexslider.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('web/assets/css/chosen.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('web/assets/css/style.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('web/assets/css/color-01.css') }}">
@@ -32,8 +33,8 @@
   @yield('content')
 
   @include('layouts.web.webFooter')
-	
-	
+
+
 	<script src="{{ asset('web/assets/js/jquery-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
 	<script src="{{ asset('web/assets/js/jquery-ui-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
 	<script src="{{ asset('web/assets/js/bootstrap.min.js') }}"></script>

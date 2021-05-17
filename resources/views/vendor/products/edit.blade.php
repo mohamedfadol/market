@@ -16,7 +16,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-        <form action="{{route('vendor.update.product',$product->id)}}" method="POST" >
+        <form action="{{route('vendor.update.product',$product->id)}}" method="POST" enctype="multipart/form-data">
         <div class="btn-group">
                 <button type="submit" class="btn btn-outline-dark bg-primary">{{ __('message.Update') }}</button>
             </div>

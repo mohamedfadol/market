@@ -46,28 +46,38 @@ class ProductController extends Controller
            // dd($request->all());
         $this->validate($request, [
             'product_name'      => 'required|string',
-            'stock_status'      => 'required|string',
-            'quantity'          => 'required',
-            'sale_price'        => 'required|numeric',
-            'featured'          => 'required',
-            'category_id'       => 'required',
-            'image'             => 'required',
+            'stock_status'      => 'nullable|string',
+            'quantity'          => 'nullable',
+            'sale_price'        => 'nullable|numeric',
+            'featured'          => 'nullable',
+            'category_id'       => 'nullable',
+            'image'             => 'nullable',
             'images.*'          => 'nullable'
         ]);
+        
         $product = new Product(); 
         if ($request->hasFile('image')) {
+            //dd($request->image);
             // Get File Name With Extenison
             $fileNameWithEex = $request->file('image')->getClientOriginalName();
+             //dd($fileNameWithEex);
+
             // Get fileName Only
             $fileName = pathinfo($fileNameWithEex , PATHINFO_FILENAME);
+            //dd($fileName);
+
             // Get FileExtenison
             $extension = $request->file('image')->getClientOriginalExtension();
+            //dd($extension);
+
             // fileName To Store
             $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+            //dd($fileNameToStore);
+
             // Upload file
             $folder = '/public/product/image';
-            $path = $request->file('file')->storeAs($folder, $fileNameToStore);
-            // dd($path);
+            $path = $request->file('image')->storeAs($folder, $fileNameToStore);
+            //dd($path);
         }else{
             $fileNameToStore = 'No Image To Store In .jpg';
         }
@@ -87,7 +97,8 @@ class ProductController extends Controller
         $product->product_name  = $request->input('product_name');
         $product->slug          = Str::slug($request->input('product_name'));
         $product->image         = $fileNameToStore;
-        $product->images        = $files;
+        //dd($fileNameToStore);
+        $product->images        = json_encode($files);
         $product->stock_status  = $request->input('stock_status');
         $product->sale_price    = $request->input('sale_price');
         $product->regural_price = $request->input('regural_price');
@@ -157,7 +168,7 @@ class ProductController extends Controller
             $fileNameToStore = $fileName.'_'.time().'.'.$extension;
             // Upload file
             $folder = '/public/product/image';
-            $path = $request->file('file')->storeAs($folder, $fileNameToStore);
+            $path = $request->file('image')->storeAs($folder, $fileNameToStore);
             // dd($path);
         }else{
             $fileNameToStore = 'No Image To Store In .jpg';
@@ -178,8 +189,8 @@ class ProductController extends Controller
         $product = Product::findOrFail($product->id);
         $product->product_name  = $request->input('product_name');
         $product->slug          = Str::slug($request->input('product_name'));
-        $product->image         = $request->input('image');
-        $product->images        = $request->input('images');
+        $product->image         = $fileNameToStore;
+        $product->images        = json_encode($files);
         $product->stock_status  = $request->input('stock_status');
         $product->sale_price    = $request->input('sale_price');
         $product->regural_price = $request->input('regural_price');
