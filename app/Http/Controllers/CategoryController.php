@@ -41,7 +41,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $category = new Category();
-        $category->category_name       =  $request->input('category_name');
+        $category->category_name  =  $request->input('category_name');
         $category->user_id =  Auth::user()->id;
         $category->save();
          return  redirect(route('vendor.categories'))->with('success' ,'Category Has Been Inserted');
@@ -80,7 +80,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $category = Category::findOrFail($category->id);
-        $category->category_name       =  $request->input('category_name');
+        $category->category_name  =  $request->input('category_name');
         $category->user_id =  Auth::user()->id;
         $category->save();
         return  redirect(route('vendor.categories'))->with('success' ,'Category Has Been Inserted');

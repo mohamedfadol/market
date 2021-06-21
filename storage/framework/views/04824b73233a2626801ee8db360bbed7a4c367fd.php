@@ -18,7 +18,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo e(asset('web/assets/css/color-01.css')); ?>">
 	<?php echo $__env->yieldContent('styles'); ?>
 </head>
-<body class="home-page home-01 ">
+<body class="home-page home-01 shopping-cart page">
 
 	<!-- mobile menu -->
     <div class="mercado-clone-wrap">

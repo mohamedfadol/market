@@ -202,7 +202,7 @@ class ProductController extends Controller
         $product->category_id   = $request->input('category_id');
         $product->user_id       =  Auth::user()->id;
         $product->save();
-        return  redirect(route('vendor.products'))->with('success' ,'Product Has Been Inserted');
+        return  redirect(route('vendor.products'))->with('success' ,'Product Has Been Updated');
     }
 
     /**

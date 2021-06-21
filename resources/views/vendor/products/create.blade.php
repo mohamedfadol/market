@@ -106,14 +106,14 @@
                             placeholder="Enter Product Description">
                     @error('short_desc') <span class="text-danger">{{$message}}</span>@enderror
                 </div>
-                <div class="form-group">
+                <div class="form-group"> 
                     <label for="images">{{ __('message.product images') }}</label>
-                    <input type="file" name="images" class="form-control form-control-sm" id="images" />
+                    <input type="file" name="images" class="form-control form-control-sm" id="images" multiple="multiple" />
                     @error('images') <span class="text-danger">{{$message}}</span>@enderror
                 </div>
                 <div class="form-group">
                     <label for="image">{{ __('message.product image') }}</label>
-                    <img id="blah" src="#" alt="..." class="img-thumbnail">
+                    <img id="blah" width="80" height="60" src="#" alt="..." class="img-thumbnail">
                     <input type="file" name="image" class="form-control form-control-sm" id="image" />
                     @error('image') <span class="text-danger">{{$message}}</span>@enderror
                 </div>

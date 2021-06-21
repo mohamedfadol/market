@@ -16,13 +16,13 @@
             <thead>
                 <tr> 
                     <th>{{ __('message.ID') }}</th>
-                    <th>{{ __('message.product images') }}</th>
+                    <th>{{ __('message.Image') }}</th>
                     <th>{{ __('message.Title') }}</th>
-                    <th>{{ __('message.Vendor Name') }}</th>
+                    <th>{{ __('message.Vendor') }}</th>
                     <th>{{ __('message.Category') }}</th>
-                    <th>{{ __('message.sale price') }}</th>
-                    <th>{{ __('message.regural price') }}</th>
-                    <th>{{ __('message.product quantity') }}</th>
+                    <th>{{ __('message.Sale Price') }}</th>
+                    <th>{{ __('message.Regural Price') }}</th>
+                    <th>{{ __('message.Quantity') }}</th>
                     <th>{{ __('message.Stock') }}</th>
                     <th>{{ __('message.SKU') }}</th>
                     <th>{{ __('message.Date') }}</th>
@@ -39,11 +39,11 @@
                             src="{{ URL::asset('/storage/product/image/'.$product->image) }}"
                                 width="80" />
                         </td>
-                        <td>{{ $product->product_name }}</td> 
+                        <td>{{ Str::limit($product->product_name ,10) }}</td> 
                         <td>{{ $product->vendor->name }}</td> 
                         <td>{{ $product->category->category_name }}</td>
-                        <td>{{ $product->sale_price }}</td>
-                        <td>{{ $product->regural_price }}</td>
+                        <td>{{ number_format($product->sale_price ,2)}}</td>
+                        <td>{{ number_format($product->regural_price ,2) }}</td>
                         <td>{{ $product->quantity }}</td>
                         <td>
                         @if( $product->stock_status == 'instock')
@@ -71,22 +71,6 @@
             @else
                 <p class="text-info text-center">{{ __('message.Theres No Product In Your Database To Show Them') }}</p>
             @endif
-            <tfoot>
-                <tr> 
-                    <th>{{ __('message.ID') }}</th>
-                    <th>{{ __('message.product images') }}</th>
-                    <th>{{ __('message.Title') }}</th>
-                    <th>{{ __('message.Vendor Name') }}</th>
-                    <th>{{ __('message.Category') }}</th>
-                    <th>{{ __('message.sale price') }}</th>
-                    <th>{{ __('message.regural price') }}</th>
-                    <th>{{ __('message.product quantity') }}</th>
-                    <th>{{ __('message.Stock') }}</th>
-                    <th>{{ __('message.SKU') }}</th>
-                    <th>{{ __('message.Date') }}</th>
-                    <th>{{ __('message.Actions') }}</th>
-                </tr>
-            </tfoot>
         </table>
     </div>
     <!-- /.card-body -->

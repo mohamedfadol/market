@@ -99,11 +99,26 @@ return [
     "Theres No Products In Your Database To Show Them" => "Theres No Products In Your Database To Show Them",
     "Select Stock" => "Select Stock",
     "SKU" => "SKU",
+    "Image" => "Image",
+    "Quantity" => "Quantity",
+    "Sale Price" => "Sale Price",
+    "Theres No Product In Your Database To Show Them" => "Theres No Product In Your Database To Show Them",
+    "Vendor" => "Vendor",
+    "Regural Price" => "Regural Price",
     "Category" => "Category",
     "Category" => "Category",
     "Category" => "Category",
     "Category" => "Category",
     "Category" => "Category",
+    "Category" => "Category",
+    "Category" => "Category",
+    "Category" => "Category",
+    "Category" => "Category",
+    "Category" => "Category",
+    "Category" => "Category",
+    "Category" => "Category",
+    "Category" => "Category",
+    
 
 
 ];

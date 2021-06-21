@@ -25,6 +25,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 {
 	/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
 	Route::get('/',  [GeneralHomeController::class ,'index'])->name('home.index');
+    Route::get('/home/product/{product}/show',[GeneralHomeController::class ,'productShowDetails'])->name('home.product.details');
+    Route::get('/home/product/about-us',[GeneralHomeController::class ,'productAboutUs'])->name('home.product.about-us');
+    Route::get('/home/product/shoping',[GeneralHomeController::class ,'productShoping'])->name('home.product.shoping');
+    Route::get('/home/product/contact-us',[GeneralHomeController::class ,'productContactUs'])->name('home.product.contact-us');
+    Route::get('/home/product/cart',[GeneralHomeController::class ,'productCart'])->name('home.product.cart');
 
 });
 

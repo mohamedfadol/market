@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class GeneralHomeController extends Controller
@@ -13,66 +14,59 @@ class GeneralHomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() 
     {
-        $categories = Category::orderBy('id','desc')->get();
+        $now = now();
+        $toDay = Carbon::parse($now)->format('l');
+        $categories = Category::orderBy('id','desc')->limit(6)->get();
+        $products = Product::orderBy('id','desc')->limit(10)->get();
+        $latestProducts = Product::orderBy('id','asc')->limit(10)->get();
+        return view('web.home.index')
+                    ->with(['toDay'=> $toDay,
+                            'categories' => $categories,
+                            'products' => $products,
+                            'latestProducts' => $latestProducts
+                    ]);
+    }
+
+ 
+    public function productShowDetails(Product $product)
+    {
+        $product = Product::findOrFail($product->id);
+        $Relatedproducts = Product::orderBy('id','desc')->get();
+        $Popularproducts = Product::orderBy('id','desc')->limit(4)->get();
+        return view('web.home.productDetails',
+                    ['product' => $product,
+                    'Relatedproducts' => $Relatedproducts,
+                    'Popularproducts' => $Popularproducts
+                    ]);
+    }
+
+ 
+    public function productAboutUs()
+    {
+        return view('web.home.aboutus');
+    }
+
+ 
+    public function productShoping()
+    {
+        $products = Product::orderBy('id','desc')->paginate(9);
+        $Popularproducts = Product::orderBy('id','desc')->limit(4)->get();
+        return view('web.home.shoping',['products' => $products,'Popularproducts' => $Popularproducts]);
+    }
+
+ 
+    public function productContactUs()
+    {
+        return view('web.home.contact-us');
+    }
+
+ 
+    public function productCart()
+    {
         $products = Product::orderBy('id','desc')->get();
-        return view('web.home.index')->with(['categories' => $categories,'products' => $products]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return view('web.home.cart',['products' => $products]);
     }
 
     /**

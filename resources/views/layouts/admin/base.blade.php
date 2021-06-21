@@ -200,21 +200,23 @@
 
         $('#example1').DataTable( {
             dom: 'Bfrtip',
+             "paging": true,
+             "pageLength": 7,
             buttons: [
                 
                 { extend:'excel',
                     orientation: 'landscape', 
                     pageSize: 'LEGAL',
-                    filename: 'تقارير أوريست',
-                    title: 'تقارير أوريست',
+                    filename: '',
+                    title: '',
                     // exportOptions: {columns: [10 ,9,8,7,6,5,4,3,2,1,0]},
                     },
                     
                 { extend:'pdf',
                     orientation: 'landscape', 
                     pageSize: 'LEGAL',
-                    //filename:  'تقارير أوريست',
-                    //title: 'تقارير أوريست',
+                    //filename:  '',
+                    //title: '',
                     exportOptions: {columns: ':visible'}, 
                     
                     customize: function(doc) {
@@ -229,8 +231,8 @@
                 { extend:'print',
                     orientation: 'landscape', 
                     pageSize: 'LEGAL',
-                   // filename:  'تقارير أوريست',
-                   // title:  'تقارير أوريست',
+                   // filename:  '',
+                   // title:  '',
                     exportOptions: {columns: ':visible'},
                     },
                     
